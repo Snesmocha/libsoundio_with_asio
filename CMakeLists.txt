@@ -36,6 +36,7 @@ option(ENABLE_PULSEAUDIO "Enable PulseAudio backend" ON)
 option(ENABLE_ALSA "Enable ALSA backend" ON)
 option(ENABLE_COREAUDIO "Enable CoreAudio backend" ON)
 option(ENABLE_WASAPI "Enable WASAPI backend" ON)
+option(ENABLE_ASIO "Enable Asio Backend" ON)
 
 find_package(Threads)
 if(Threads_FOUND)
