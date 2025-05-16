@@ -10,6 +10,7 @@
 #ifndef SOUNDIO_ASIO_H
 #define SOUNDIO_ASIO_H
 
+#ifndef WINDOWS_MEANA
 
 #include <asio/aiso.h>
 #include <asio/asiodrivers.h>
