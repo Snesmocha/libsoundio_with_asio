@@ -1,6 +1,7 @@
 #include "asio.h"
 
 
+#include "soundio_private.h"
 
 #include <asio/aiso.h>
 #include <asio/asiodrivers.h>
