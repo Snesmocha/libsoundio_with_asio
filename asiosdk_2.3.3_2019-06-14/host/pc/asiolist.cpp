@@ -22,19 +22,26 @@ static LONG findDrvPath (char *clsidstr,char *dllpath,int dllpathsize)
 	BOOL			found = FALSE;
 
 	CharLowerBuff(clsidstr,strlen(clsidstr));
-	if ((cr = RegOpenKey(HKEY_CLASSES_ROOT,COM_CLSID,&hkEnum)) == ERROR_SUCCESS) {
+	if ((cr = RegOpenKey(HKEY_CLASSES_ROOT,COM_CLSID,&hkEnum)) == ERROR_SUCCESS) 
+	{
 
 		index = 0;
-		while (cr == ERROR_SUCCESS && !found) {
+		while (cr == ERROR_SUCCESS && !found) 
+		{
 			cr = RegEnumKey(hkEnum,index++,(LPTSTR)databuf,512);
-			if (cr == ERROR_SUCCESS) {
+			if (cr == ERROR_SUCCESS) 
+			{
 				CharLowerBuff(databuf,strlen(databuf));
-				if (!(strcmp(databuf,clsidstr))) {
-					if ((cr = RegOpenKeyEx(hkEnum,(LPCTSTR)databuf,0,KEY_READ,&hksub)) == ERROR_SUCCESS) {
-						if ((cr = RegOpenKeyEx(hksub,(LPCTSTR)INPROC_SERVER,0,KEY_READ,&hkpath)) == ERROR_SUCCESS) {
+				if (!(strcmp(databuf,clsidstr))) 
+				{
+					if ((cr = RegOpenKeyEx(hkEnum,(LPCTSTR)databuf,0,KEY_READ,&hksub)) == ERROR_SUCCESS) 
+					{
+						if ((cr = RegOpenKeyEx(hksub,(LPCTSTR)INPROC_SERVER,0,KEY_READ,&hkpath)) == ERROR_SUCCESS) 
+						{
 							datatype = REG_SZ; datasize = (DWORD)dllpathsize;
 							cr = RegQueryValueEx(hkpath,0,0,&datatype,(LPBYTE)dllpath,&datasize);
-							if (cr == ERROR_SUCCESS) {
+							if (cr == ERROR_SUCCESS) 
+							{
 								memset(&ofs,0,sizeof(OFSTRUCT));
 								ofs.cBytes = sizeof(OFSTRUCT); 
 								hfile = OpenFile(dllpath,&ofs,OF_EXIST);
