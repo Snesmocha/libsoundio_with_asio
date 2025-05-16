@@ -222,6 +222,7 @@ enum SoundIoBackend {
     SoundIoBackendAlsa,
     SoundIoBackendCoreAudio,
     SoundIoBackendWasapi,
+    SoundIoBackendAsio,
     SoundIoBackendDummy,
 };
 
