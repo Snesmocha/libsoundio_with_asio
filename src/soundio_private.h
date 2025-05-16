@@ -32,6 +32,11 @@
 #include "wasapi.h"
 #endif
 
+
+#ifdef SOUNDIO_HAVE_ASIO
+#include "asio.h"
+#endif
+
 #include "dummy.h"
 
 union SoundIoBackendData {
@@ -49,6 +54,9 @@ union SoundIoBackendData {
 #endif
 #ifdef SOUNDIO_HAVE_WASAPI
     struct SoundIoWasapi wasapi;
+#endif
+#ifdef SOUNDIO_HAVE_ASIO
+    struct SoundIoAsio asio;
 #endif
     struct SoundIoDummy dummy;
 };
@@ -69,6 +77,9 @@ union SoundIoDeviceBackendData {
 #ifdef SOUNDIO_HAVE_WASAPI
     struct SoundIoDeviceWasapi wasapi;
 #endif
+#ifdef SOUNDIO_HAVE_ASIO
+    struct SoundIoDeviceAsio asio;
+#endif
     struct SoundIoDeviceDummy dummy;
 };
 
@@ -88,6 +99,9 @@ union SoundIoOutStreamBackendData {
 #ifdef SOUNDIO_HAVE_WASAPI
     struct SoundIoOutStreamWasapi wasapi;
 #endif
+#ifdef SOUNDIO_HAVE_ASIO
+    struct SoundIoOutStreamAsio asio;
+#endif
     struct SoundIoOutStreamDummy dummy;
 };
 
@@ -106,6 +120,9 @@ union SoundIoInStreamBackendData {
 #endif
 #ifdef SOUNDIO_HAVE_WASAPI
     struct SoundIoInStreamWasapi wasapi;
+#endif
+#ifdef SOUNDIO_HAVE_ASIO
+    struct SoundIoInStreamAsio asio;
 #endif
     struct SoundIoInStreamDummy dummy;
 };
