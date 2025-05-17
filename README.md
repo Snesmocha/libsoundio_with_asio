@@ -1,3 +1,11 @@
+# improvements added to this fork
+
+- made to be c99 compatible
+- added asio support
+  - windows only (cause who the fuck uses asio for linux or osx) 
+- fixed the wasapi compilation bug
+
+
 # libsoundio
 
 C library providing cross-platform audio input and output. The API is
