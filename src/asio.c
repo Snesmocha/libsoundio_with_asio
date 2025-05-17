@@ -361,12 +361,13 @@ int soundio_asio_init(struct SoundIoPrivate *si)
 	struct SoundIo *soundio = &si->pub;
     
 
-    if (!SOUNDIO_ATOMIC_FLAG_TEST_AND_SET(global_msg_callback_flag)) {
-        if (soundio->asio_error_callback)
-            jack_set_error_function(soundio->asio_error_callback);
-        if (soundio->jack_info_callback)
-            jack_set_info_function(soundio->asio_info_callback);
-        SOUNDIO_ATOMIC_FLAG_CLEAR(global_msg_callback_flag);
+    if (!SOUNDIO_ATOMIC_FLAG_TEST_AND_SET(global_msg_callback_flag)) 
+    {
+    //    if (soundio->asio_error_callback)
+    //        jack_set_error_function(soundio->asio_error_callback);
+    //    if (soundio->jack_info_callback)
+    //        jack_set_info_function(soundio->asio_info_callback);
+    //    SOUNDIO_ATOMIC_FLAG_CLEAR(global_msg_callback_flag);
     }
 
     sij->mutex = soundio_os_mutex_create();
