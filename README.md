@@ -5,6 +5,12 @@
   - windows only (cause who the fuck uses asio for linux or osx) 
 - fixed the wasapi compilation bug
 
+## plans
+
+- rewrite build system in xmake
+- add .bat and .sh build scripts to simplify life
+- make it finally compile...
+
 
 # libsoundio
 
