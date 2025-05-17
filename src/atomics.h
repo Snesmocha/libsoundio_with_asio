@@ -45,35 +45,40 @@ struct SoundIoAtomicULong {
 
 #else
 
-#include <stdatomic.h>
+//#include <stdatomic.h>
+#include <stdbool.h>
+#include "tinycthread.h"
 
 struct SoundIoAtomicLong {
-    atomic_long x;
+    long x;
 };
 
 struct SoundIoAtomicInt {
-    atomic_int x;
+    int x;
 };
 
 struct SoundIoAtomicBool {
-    atomic_bool x;
+    bool x;
 };
 
 struct SoundIoAtomicFlag {
-    atomic_flag x;
+    bool x;
 };
 
 struct SoundIoAtomicULong {
-    atomic_ulong x;
+    unsigned long x;
 };
 
-#define SOUNDIO_ATOMIC_LOAD(a) atomic_load(&a.x)
-#define SOUNDIO_ATOMIC_FETCH_ADD(a, delta) atomic_fetch_add(&a.x, delta)
-#define SOUNDIO_ATOMIC_STORE(a, value) atomic_store(&a.x, value)
-#define SOUNDIO_ATOMIC_EXCHANGE(a, value) atomic_exchange(&a.x, value)
-#define SOUNDIO_ATOMIC_FLAG_TEST_AND_SET(a) atomic_flag_test_and_set(&a.x)
-#define SOUNDIO_ATOMIC_FLAG_CLEAR(a) atomic_flag_clear(&a.x)
-#define SOUNDIO_ATOMIC_FLAG_INIT ATOMIC_FLAG_INIT
+
+
+#define SOUNDIO_ATOMIC_LOAD(a) ({ int _val; mtx_lock(&(a).mutex); _val = (a).x; mtx_unlock(&(a).mutex); _val; })
+#define SOUNDIO_ATOMIC_FETCH_ADD(a, delta) ({ int _old; mtx_lock(&(a).mutex); _old = (a).x; (a).x += (delta); mtx_unlock(&(a).mutex); _old; })
+#define SOUNDIO_ATOMIC_STORE(a, value) do { mtx_lock(&(a).mutex); (a).x = (value); mtx_unlock(&(a).mutex); } while (0)
+#define SOUNDIO_ATOMIC_EXCHANGE(a, value) ({ int _old; mtx_lock(&(a).mutex); _old = (a).x; (a).x = (value); mtx_unlock(&(a).mutex); _old; })
+#define SOUNDIO_ATOMIC_FLAG_TEST_AND_SET(f) ({ int _old; mtx_lock(&(f).mutex); _old = (f).flag; (f).flag = 1; mtx_unlock(&(f).mutex); _old; })
+#define SOUNDIO_ATOMIC_FLAG_CLEAR(f) do { mtx_lock(&(f).mutex); (f).flag = 0; mtx_unlock(&(f).mutex); } while (0)
+#define SOUNDIO_ATOMIC_FLAG_INIT false
+
 
 #endif
 

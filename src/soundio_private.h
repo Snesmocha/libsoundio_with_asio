@@ -32,7 +32,6 @@
 #include "wasapi.h"
 #endif
 
-
 #ifdef SOUNDIO_HAVE_ASIO
 #include "asio.h"
 #endif
